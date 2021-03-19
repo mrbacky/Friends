@@ -39,6 +39,8 @@ abstract class FriendDatabase : RoomDatabase() {
                 friendDAO.insert(Friend("Hans"))
                 friendDAO.insert(Friend("Tim"))
                 friendDAO.insert(Friend("Harry"))
+                friendDAO.insert(Friend("Ron"))
+
             }
 
             // friendDAO.insert()

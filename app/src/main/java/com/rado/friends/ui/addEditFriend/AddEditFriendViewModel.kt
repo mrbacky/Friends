@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.rado.friends.data.Friend
 import com.rado.friends.data.FriendDAO
 import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import javax.inject.Inject
 
-class AddEditFriendViewModel @Inject constructor(
+class AddEditFriendViewModel @AssistedInject constructor(
     private val friendDAO: FriendDAO,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
