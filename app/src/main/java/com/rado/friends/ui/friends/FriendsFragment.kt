@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rado.friends.R
+import com.rado.friends.data.Friend
 import com.rado.friends.databinding.FragmentFriendsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FriendsFragment : Fragment(R.layout.fragment_friends) {
+class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnItemClickListener {
 
     private val viewModel: FriendViewModel by viewModels()
 
@@ -20,7 +21,7 @@ class FriendsFragment : Fragment(R.layout.fragment_friends) {
 
         val binding = FragmentFriendsBinding.bind(view)
 
-        val friendAdapter = FriendAdapter()
+        val friendAdapter = FriendAdapter(this)
 
         binding.apply {
             rvFriends.apply {
@@ -29,10 +30,18 @@ class FriendsFragment : Fragment(R.layout.fragment_friends) {
                 setHasFixedSize(true)
 
             }
+
+            fabAddFriend.setOnClickListener {
+                viewModel.onAddNewFriendClick()
+            }
         }
 
         viewModel.friends.observe(viewLifecycleOwner, friendAdapter::submitList)
 
 
+    }
+
+    override fun onItemClick(friend: Friend) {
+        viewModel.onFriendSelected(friend)
     }
 }

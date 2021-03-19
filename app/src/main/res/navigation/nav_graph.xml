@@ -9,5 +9,20 @@
         android:id="@+id/friendsFragment"
         android:name="com.rado.friends.ui.friends.FriendsFragment"
         android:label="fragment_friends"
-        tools:layout="@layout/fragment_friends" />
+        tools:layout="@layout/fragment_friends" >
+        <action
+            android:id="@+id/action_friendsFragment_to_addEditFriendFragment"
+            app:destination="@id/addEditFriendFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditFriendFragment"
+        android:name="com.rado.friends.ui.addEditFriend.AddEditFriendFragment"
+        android:label="fragment_add_edit_friend"
+        tools:layout="@layout/fragment_add_edit_friend" >
+        <argument
+            android:name="friend"
+            app:argType="com.rado.friends.data.Friend"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

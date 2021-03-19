@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rado.friends.data.Friend
 import com.rado.friends.databinding.ItemFriendBinding
 
-class FriendAdapter : ListAdapter<Friend, FriendAdapter.FriendViewHolder>(DiffCallback()) {
+class FriendAdapter(private val listener: OnItemClickListener) :
+    ListAdapter<Friend, FriendAdapter.FriendViewHolder>(DiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
@@ -25,14 +26,32 @@ class FriendAdapter : ListAdapter<Friend, FriendAdapter.FriendViewHolder>(DiffCa
 
     }
 
-    class FriendViewHolder(private val binding: ItemFriendBinding) :
+    inner class FriendViewHolder(private val binding: ItemFriendBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.apply {
+                root.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val friend = getItem(position)
+                        listener.onItemClick(friend)
+                    }
+                }
+            }
+
+        }
+
         fun bind(friend: Friend) {
             binding.apply {
                 tvFriendName.text = friend.name
             }
         }
 
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(friend: Friend)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Friend>() {
