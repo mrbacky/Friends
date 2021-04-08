@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.rado.friends.data.Friend
 import com.rado.friends.data.FriendDAO
 import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FriendViewModel @Inject constructor(
     private val friendDao: FriendDAO,
-    @Assisted private val state: SavedStateHandle
+    private val state: SavedStateHandle
 ) : ViewModel() {
 
     val friends = friendDao.getFriends().asLiveData()

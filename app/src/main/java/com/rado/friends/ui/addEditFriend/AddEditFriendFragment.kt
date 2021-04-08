@@ -2,6 +2,7 @@ package com.rado.friends.ui.addEditFriend
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.rado.friends.R
@@ -19,6 +20,18 @@ class AddEditFriendFragment : Fragment(R.layout.fragment_add_edit_friend) {
         val binding = FragmentAddEditFriendBinding.bind(view)
         binding.apply {
             etFriendName.setText(viewModel.friendName)
+
+            etFriendName.addTextChangedListener {
+                viewModel.friendName = it.toString()
+
+            }
+
+            fabSaveFriend.setOnClickListener{
+                viewModel.onSaveClick()
+
+            }
+
+
 
         }
 

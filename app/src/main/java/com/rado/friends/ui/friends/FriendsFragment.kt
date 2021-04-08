@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.rado.friends.R
 import com.rado.friends.data.Friend
 import com.rado.friends.databinding.FragmentFriendsBinding
+import com.rado.friends.util.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -78,9 +80,19 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
                             viewModel.onUndoDeleteClick(event.friend)
                         }.show()
                     }
-
-
-                }
+                    is FriendViewModel.FriendEvent.NavigateToAddFriendScreen -> {
+                        val action =
+                            FriendsFragmentDirections.actionFriendsFragmentToAddEditFriendFragment()
+                        findNavController().navigate(action)
+                    }
+                    is FriendViewModel.FriendEvent.NavigateToEditFriendScreen -> {
+                        val action =
+                            FriendsFragmentDirections.actionFriendsFragmentToAddEditFriendFragment(
+                                event.friend
+                            )
+                        findNavController().navigate(action)
+                    }
+                }.exhaustive
 
             }
         }
@@ -91,3 +103,17 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
         viewModel.onFriendSelected(friend)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
