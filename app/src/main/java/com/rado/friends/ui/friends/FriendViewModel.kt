@@ -20,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class FriendViewModel @Inject constructor(
     private val friendDao: FriendDAO,
-    private val state: SavedStateHandle
 ) : ViewModel() {
 
     val friends = friendDao.getFriends().asLiveData()

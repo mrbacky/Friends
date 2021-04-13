@@ -1,10 +1,10 @@
 package com.rado.friends.ui.addEditFriend
 
-import android.app.Activity
-import android.content.Context
+import android.R.attr.phoneNumber
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -19,6 +19,7 @@ import com.rado.friends.util.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
+
 @AndroidEntryPoint
 class AddEditFriendFragment : Fragment(R.layout.fragment_add_edit_friend) {
 
@@ -26,6 +27,7 @@ class AddEditFriendFragment : Fragment(R.layout.fragment_add_edit_friend) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val binding = FragmentAddEditFriendBinding.bind(view)
         binding.apply {
@@ -65,12 +67,35 @@ class AddEditFriendFragment : Fragment(R.layout.fragment_add_edit_friend) {
             }
 
 
+            ibPhone.setOnClickListener {
+                val phoneNumber = etFriendPhone.text
+                val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber"))
+                startActivity(intent)
+            }
+
+            ibMessage.setOnClickListener {
+                val phoneNumber = etFriendPhone.text
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("smsto:" + Uri.encode(phoneNumber.toString()))
+                startActivity(intent)
+
+            }
+
+            ibEmail.setOnClickListener {
+                val email = etFriendEmail.text
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data =
+                    Uri.parse("mailto:" + Uri.encode(email.toString())) // only email apps should handle this
+                startActivity(intent)
+            }
+
+
         }
 
-//        fun hideKeyboardFrom(context: Context, view: View) {
-//            val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-//            imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
-//        }
+
+
+
+
 
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {

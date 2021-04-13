@@ -1,5 +1,6 @@
 package com.rado.friends.ui.friends
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -45,6 +46,8 @@ class FriendAdapter(private val listener: OnItemClickListener) :
         fun bind(friend: Friend) {
             binding.apply {
                 tvFriendName.text = friend.name
+                tvFriendWebsite.text = friend.website
+
             }
         }
 
