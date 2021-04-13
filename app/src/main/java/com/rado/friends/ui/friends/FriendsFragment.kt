@@ -1,8 +1,12 @@
 package com.rado.friends.ui.friends
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -63,8 +67,21 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
 
             fabAddFriend.setOnClickListener {
                 viewModel.onAddNewFriendClick()
+
             }
+
+
         }
+
+        setFragmentResultListener("add_edit_request") { _, bundle ->
+            val result = bundle.getInt("add_edit_result")
+            viewModel.onAddEditResult(result)
+
+
+        }
+
+
+
 
         viewModel.friends.observe(viewLifecycleOwner, friendAdapter::submitList)
 
@@ -82,15 +99,22 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
                     }
                     is FriendViewModel.FriendEvent.NavigateToAddFriendScreen -> {
                         val action =
-                            FriendsFragmentDirections.actionFriendsFragmentToAddEditFriendFragment()
+                            FriendsFragmentDirections.actionFriendsFragmentToAddEditFriendFragment(
+                                null,
+                                "Add Friend"
+                            )
                         findNavController().navigate(action)
+
                     }
                     is FriendViewModel.FriendEvent.NavigateToEditFriendScreen -> {
                         val action =
                             FriendsFragmentDirections.actionFriendsFragmentToAddEditFriendFragment(
-                                event.friend
+                                event.friend, "Edit Friend"
                             )
                         findNavController().navigate(action)
+                    }
+                    is FriendViewModel.FriendEvent.ShowFriendSavedConfirmationMessage -> {
+                        Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
                 }.exhaustive
 

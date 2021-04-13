@@ -1,10 +1,16 @@
 package com.rado.friends.ui.addEditFriend
 
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rado.friends.data.Friend
 import com.rado.friends.data.FriendDAO
+import com.rado.friends.ui.ADD_FRIEND_RESULT_OK
+import com.rado.friends.ui.EDIT_TASK_RESULT_OK
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +41,7 @@ class AddEditFriendViewModel @Inject constructor(
     fun onSaveClick() {
         if (friendName.isBlank()) {
             showInvalidInputMessage("Name cannot be empty")
-
+            return
         }
 
         if (friend != null) {
@@ -54,13 +60,19 @@ class AddEditFriendViewModel @Inject constructor(
 
     private fun createFriend(newFriend: Friend) = viewModelScope.launch {
         friendDAO.insert(newFriend)
-        //addEditFriendEventChannel.send(AddEditFriendEvent.NavigateBackWithResult())
+        addEditFriendEventChannel.send(
+            AddEditFriendEvent.NavigateBackWithResult(
+                ADD_FRIEND_RESULT_OK
+            )
+        )
     }
 
     private fun updateFriend(updatedFriend: Friend) = viewModelScope.launch {
         friendDAO.update(updatedFriend)
-        //addEditFriendEventChannel.send(AddEditFriendEvent.NavigateBackWithResult())
+        addEditFriendEventChannel.send(AddEditFriendEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+
     }
+
 
 
     sealed class AddEditFriendEvent {

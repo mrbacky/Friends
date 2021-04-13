@@ -1,11 +1,14 @@
 package com.rado.friends.ui.friends
 
+import android.util.EventLog
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.rado.friends.data.Friend
 import com.rado.friends.data.FriendDAO
+import com.rado.friends.ui.ADD_FRIEND_RESULT_OK
+import com.rado.friends.ui.EDIT_TASK_RESULT_OK
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,6 +35,7 @@ class FriendViewModel @Inject constructor(
 
     fun onAddNewFriendClick() = viewModelScope.launch {
         friendEventChannel.send(FriendEvent.NavigateToAddFriendScreen)
+
     }
 
     fun onFriendSwiped(friend: Friend) = viewModelScope.launch {
@@ -43,13 +47,24 @@ class FriendViewModel @Inject constructor(
         friendDao.insert(friend)
     }
 
+    fun onAddEditResult(result: Int) {
+        when (result) {
+            ADD_FRIEND_RESULT_OK -> showFriendSavedConfirmationMessage("Friend added")
+            EDIT_TASK_RESULT_OK -> showFriendSavedConfirmationMessage("Friend updated")
+        }
+    }
+
+    private fun showFriendSavedConfirmationMessage(s: String) = viewModelScope.launch {
+        friendEventChannel.send(FriendEvent.ShowFriendSavedConfirmationMessage(s))
+
+    }
+
     sealed class FriendEvent {
 
         data class ShowUndoDeleteFriendMessage(val friend: Friend) : FriendEvent()
-
         object NavigateToAddFriendScreen : FriendEvent()
-
         data class NavigateToEditFriendScreen(val friend: Friend) : FriendEvent()
+        data class ShowFriendSavedConfirmationMessage(val msg: String) : FriendEvent()
 
     }
 

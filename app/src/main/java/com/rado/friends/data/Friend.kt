@@ -9,6 +9,11 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Friend(
     val name: String,
+//    val address: String,
+//    val phone: String,
+//    val email: String,
+//    val birthday: String,
+//    val website: String,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
 ) : Parcelable {
 
