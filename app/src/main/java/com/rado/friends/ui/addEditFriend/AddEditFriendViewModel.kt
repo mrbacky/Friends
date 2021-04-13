@@ -34,6 +34,36 @@ class AddEditFriendViewModel @Inject constructor(
             state.set("friendName", value)
         }
 
+    var friendAddress = state.get<String>("friendAddress") ?: friend?.address ?: ""
+        set(value) {
+            field = value
+            state.set("friendAddress", value)
+        }
+
+    var friendPhone = state.get<String>("friendPhone") ?: friend?.phone ?: ""
+        set(value) {
+            field = value
+            state.set("friendPhone", value)
+        }
+
+    var friendEmail = state.get<String>("friendEmail") ?: friend?.email ?: ""
+        set(value) {
+            field = value
+            state.set("friendEmail", value)
+        }
+
+    var friendBirthday = state.get<String>("friendBirthday") ?: friend?.birthday ?: ""
+        set(value) {
+            field = value
+            state.set("friendBirthday", value)
+        }
+
+    var friendWebsite = state.get<String>("friendWebsite") ?: friend?.website ?: ""
+        set(value) {
+            field = value
+            state.set("friendWebsite", value)
+        }
+
 
     private val addEditFriendEventChannel = Channel<AddEditFriendEvent>()
     val addEditFriendEvent = addEditFriendEventChannel.receiveAsFlow()
@@ -49,7 +79,14 @@ class AddEditFriendViewModel @Inject constructor(
             updateFriend(updatedFriend)
 
         } else {
-            val newFriend = Friend(name = friendName)
+            val newFriend = Friend(
+                name = friendName,
+                address = friendAddress,
+                phone = friendPhone,
+                email = friendEmail,
+                birthday = friendBirthday,
+                website = friendWebsite
+            )
             createFriend(newFriend)
         }
     }
@@ -72,7 +109,6 @@ class AddEditFriendViewModel @Inject constructor(
         addEditFriendEventChannel.send(AddEditFriendEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
     }
-
 
 
     sealed class AddEditFriendEvent {

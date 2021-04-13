@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
-@Database(entities = [Friend::class], version = 1, exportSchema = false)
+@Database(entities = [Friend::class], version = 2, exportSchema = false)
 abstract class FriendDatabase : RoomDatabase() {
 
 
@@ -26,20 +26,37 @@ abstract class FriendDatabase : RoomDatabase() {
 
             val friendDAO = database.get().friendDAO()
             applicationScope.launch {
-                friendDAO.insert(Friend("Mike"))
-                friendDAO.insert(Friend("Frank"))
-                friendDAO.insert(Friend("Jim"))
-                friendDAO.insert(Friend("Mia"))
-                friendDAO.insert(Friend("Joe"))
-                friendDAO.insert(Friend("Wiz"))
-                friendDAO.insert(Friend("Walt"))
-                friendDAO.insert(Friend("Gus"))
-                friendDAO.insert(Friend("Freddy"))
-                friendDAO.insert(Friend("Nicolas"))
-                friendDAO.insert(Friend("Hans"))
-                friendDAO.insert(Friend("Tim"))
-                friendDAO.insert(Friend("Harry"))
-                friendDAO.insert(Friend("Ron"))
+                friendDAO.insert(
+                    Friend(
+                        "Mike",
+                        "Spangsbjerg Mollevej 87, Esbjerg, Denmark",
+                        "81984784",
+                        "mike@easv.dk",
+                        "18/7/1990",
+                        "www.mike.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Frank",
+                        "Spangsbjerg Mollevej 123, Esbjerg, Denmark",
+                        "25847484",
+                        "frank@gmail.com",
+                        "18/7/1990",
+                        "www.mike.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Mia",
+                        "Spangsbjerg Mollevej 43, Esbjerg, Denmark",
+                        "25147484",
+                        "mia@gmail.com",
+                        "18/7/1990",
+                        "www.mia.com"
+                    )
+                )
+
 
             }
 

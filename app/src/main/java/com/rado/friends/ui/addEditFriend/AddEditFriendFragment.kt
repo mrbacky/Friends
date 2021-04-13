@@ -30,10 +30,33 @@ class AddEditFriendFragment : Fragment(R.layout.fragment_add_edit_friend) {
         val binding = FragmentAddEditFriendBinding.bind(view)
         binding.apply {
             etFriendName.setText(viewModel.friendName)
-
             etFriendName.addTextChangedListener {
                 viewModel.friendName = it.toString()
+            }
 
+            etFriendAddress.setText(viewModel.friendAddress)
+            etFriendAddress.addTextChangedListener {
+                viewModel.friendAddress = it.toString()
+            }
+
+            etFriendPhone.setText(viewModel.friendPhone)
+            etFriendPhone.addTextChangedListener {
+                viewModel.friendPhone = it.toString()
+            }
+
+            etFriendEmail.setText(viewModel.friendEmail)
+            etFriendEmail.addTextChangedListener {
+                viewModel.friendEmail = it.toString()
+            }
+
+            etFriendBirthday.setText(viewModel.friendBirthday)
+            etFriendBirthday.addTextChangedListener {
+                viewModel.friendBirthday = it.toString()
+            }
+
+            etFriendWebsite.setText(viewModel.friendWebsite)
+            etFriendWebsite.addTextChangedListener {
+                viewModel.friendWebsite = it.toString()
             }
 
             fabSaveFriend.setOnClickListener {
