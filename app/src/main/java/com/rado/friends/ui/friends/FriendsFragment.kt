@@ -39,9 +39,7 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
                 adapter = friendAdapter
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
-
             }
-
 
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                 0,
@@ -58,10 +56,7 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val friend = friendAdapter.currentList[viewHolder.adapterPosition]
                     viewModel.onFriendSwiped(friend)
-
-
                 }
-
 
             }).attachToRecyclerView(rvFriends)
 
@@ -69,8 +64,6 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
                 viewModel.onAddNewFriendClick()
 
             }
-
-
         }
 
         setFragmentResultListener("add_edit_request") { _, bundle ->
@@ -79,9 +72,6 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
 
 
         }
-
-
-
 
         viewModel.friends.observe(viewLifecycleOwner, friendAdapter::submitList)
 

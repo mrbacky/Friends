@@ -13,10 +13,20 @@ import javax.inject.Provider
 @Database(entities = [Friend::class], version = 2, exportSchema = false)
 abstract class FriendDatabase : RoomDatabase() {
 
-
     abstract fun friendDAO(): FriendDAO
 
-
+    /**
+     * Annotating Callback class with @Inject so Dagger Hilt can inject the Callback instance to Database.
+     *
+     * Callback needs Database and Database needs Callback. There is circular dependency.
+     * onCreate method in Callback will be executed after building the database.
+     * We have to define database provider so we can avoid circular dependency.
+     * After the database is built, Callback instance gets the database via db provider,
+     * get DAO and execute insertion of initial data
+     *
+     *
+     *
+     */
     class Callback @Inject constructor(
         private val database: Provider<FriendDatabase>,
         @ApplicationScope private val applicationScope: CoroutineScope
@@ -24,7 +34,9 @@ abstract class FriendDatabase : RoomDatabase() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
 
+
             val friendDAO = database.get().friendDAO()
+            //  running DAO functions in coroutineScope that is constructed by Dagger Hilt
             applicationScope.launch {
                 friendDAO.insert(
                     Friend(
@@ -56,13 +68,7 @@ abstract class FriendDatabase : RoomDatabase() {
                         "www.mia.com"
                     )
                 )
-
-
             }
-
-            // friendDAO.insert()
-            // db stuff
-
         }
     }
 

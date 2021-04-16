@@ -75,7 +75,14 @@ class AddEditFriendViewModel @Inject constructor(
         }
 
         if (friend != null) {
-            val updatedFriend = friend.copy(name = friendName)
+            val updatedFriend = friend.copy(
+                name = friendName,
+                address = friendAddress,
+                phone = friendPhone,
+                email = friendEmail,
+                birthday = friendBirthday,
+                website = friendWebsite
+            )
             updateFriend(updatedFriend)
 
         } else {

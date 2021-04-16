@@ -16,20 +16,15 @@ class FriendAdapter(private val listener: OnItemClickListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         val binding = ItemFriendBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FriendViewHolder(binding)
-
-
     }
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.bind(currentItem)
-
-
     }
 
     inner class FriendViewHolder(private val binding: ItemFriendBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         init {
             binding.apply {
                 root.setOnClickListener {
@@ -40,7 +35,6 @@ class FriendAdapter(private val listener: OnItemClickListener) :
                     }
                 }
             }
-
         }
 
         fun bind(friend: Friend) {
@@ -50,13 +44,15 @@ class FriendAdapter(private val listener: OnItemClickListener) :
 
             }
         }
-
     }
 
     interface OnItemClickListener {
         fun onItemClick(friend: Friend)
     }
 
+    /**
+     *
+     */
     class DiffCallback : DiffUtil.ItemCallback<Friend>() {
         override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean =
             oldItem.id == newItem.id
