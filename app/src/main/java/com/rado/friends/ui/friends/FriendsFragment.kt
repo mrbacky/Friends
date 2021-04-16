@@ -1,10 +1,7 @@
 package com.rado.friends.ui.friends
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -19,7 +16,6 @@ import com.rado.friends.data.Friend
 import com.rado.friends.databinding.FragmentFriendsBinding
 import com.rado.friends.util.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_friends.*
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint

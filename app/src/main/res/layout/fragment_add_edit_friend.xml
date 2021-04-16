@@ -16,39 +16,19 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-
-                <ImageView
-                    android:id="@+id/imgViewFriendPhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/ic_baseline_person_144" />
-
-                <Button
-                    android:id="@+id/ibTakePhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Take Photo" />
-
-
-            </LinearLayout>
-
+            android:padding="8dp"
+            android:paddingTop="30dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp">
 
                 <ImageButton
                     android:id="@+id/ibPhone"

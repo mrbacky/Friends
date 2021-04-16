@@ -10,6 +10,7 @@ import com.rado.friends.data.Friend
 import com.rado.friends.databinding.ItemFriendBinding
 
 class FriendAdapter(private val listener: OnItemClickListener) :
+    //  List adapter can handle differences after the new list is received as flow
     ListAdapter<Friend, FriendAdapter.FriendViewHolder>(DiffCallback()) {
 
 
@@ -23,6 +24,7 @@ class FriendAdapter(private val listener: OnItemClickListener) :
         holder.bind(currentItem)
     }
 
+    //  ViewHolder for individual views as Friends in RecyclerView
     inner class FriendViewHolder(private val binding: ItemFriendBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
@@ -51,12 +53,14 @@ class FriendAdapter(private val listener: OnItemClickListener) :
     }
 
     /**
-     *
+     *  Defining how ListAdapter will calculate changes between old and new list
      */
     class DiffCallback : DiffUtil.ItemCallback<Friend>() {
+        //  checking position
         override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean =
             oldItem.id == newItem.id
 
+        //  refreshing items if there are differences between properties
         override fun areContentsTheSame(oldItem: Friend, newItem: Friend): Boolean =
             oldItem == newItem
 

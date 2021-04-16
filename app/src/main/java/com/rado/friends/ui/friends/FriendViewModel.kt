@@ -1,7 +1,5 @@
 package com.rado.friends.ui.friends
 
-import android.util.EventLog
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,8 +7,6 @@ import com.rado.friends.data.Friend
 import com.rado.friends.data.FriendDAO
 import com.rado.friends.ui.ADD_FRIEND_RESULT_OK
 import com.rado.friends.ui.EDIT_TASK_RESULT_OK
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

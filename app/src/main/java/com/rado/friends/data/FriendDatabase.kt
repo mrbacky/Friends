@@ -40,7 +40,7 @@ abstract class FriendDatabase : RoomDatabase() {
             applicationScope.launch {
                 friendDAO.insert(
                     Friend(
-                        "Mike",
+                        "Mike Tyson",
                         "Spangsbjerg Mollevej 87, Esbjerg, Denmark",
                         "81984784",
                         "mike@easv.dk",
@@ -50,22 +50,92 @@ abstract class FriendDatabase : RoomDatabase() {
                 )
                 friendDAO.insert(
                     Friend(
-                        "Frank",
-                        "Spangsbjerg Mollevej 123, Esbjerg, Denmark",
-                        "25847484",
-                        "frank@gmail.com",
+                        "Jim Fox",
+                        "Spangsbjerg Mollevej 333, Esbjerg, Denmark",
+                        "81984784",
+                        "mike@easv.dk",
                         "18/7/1990",
-                        "www.mike.com"
+                        "www.jim.com"
                     )
                 )
                 friendDAO.insert(
                     Friend(
-                        "Mia",
+                        "Frank Johnson",
+                        "Spangsbjerg Mollevej 123, Esbjerg, Denmark",
+                        "45786756",
+                        "frank@gmail.com",
+                        "18/7/1990",
+                        "www.frank.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Mia Smith",
                         "Spangsbjerg Mollevej 43, Esbjerg, Denmark",
-                        "25147484",
+                        "23457654",
                         "mia@gmail.com",
                         "18/7/1990",
                         "www.mia.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Travis Scott",
+                        "Spangsbjerg Mollevej 665, Esbjerg, Denmark",
+                        "25147484",
+                        "mia@gmail.com",
+                        "10/3/1994",
+                        "www.travis.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Henry Thomson",
+                        "Spangsbjerg Mollevej 567, Esbjerg, Denmark",
+                        "54225856",
+                        "mia@gmail.com",
+                        "3/7/1999",
+                        "www.henry.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Gus Fring",
+                        "Spangsbjerg Mollevej 3698, Esbjerg, Denmark",
+                        "81849196",
+                        "gus@gmail.com",
+                        "3/7/1980",
+                        "www.gus.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Sara",
+                        "Spangsbjerg Mollevej 577, Esbjerg, Denmark",
+                        "81874196",
+                        "sara@gmail.com",
+                        "3/7/1980",
+                        "www.sara.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Walter White",
+                        "Spangsbjerg Mollevej 83, Esbjerg, Denmark",
+                        "81447896",
+                        "walt@gmail.com",
+                        "3/7/1981",
+                        "www.walt.com"
+                    )
+                )
+                friendDAO.insert(
+                    Friend(
+                        "Hank",
+                        "Spangsbjerg Mollevej 98, Esbjerg, Denmark",
+                        "81863896",
+                        "Hank@gmail.com",
+                        "3/7/1981",
+                        "www.hank.com"
                     )
                 )
             }
