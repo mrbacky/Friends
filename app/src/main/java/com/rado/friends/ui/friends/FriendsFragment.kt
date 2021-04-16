@@ -19,6 +19,7 @@ import com.rado.friends.data.Friend
 import com.rado.friends.databinding.FragmentFriendsBinding
 import com.rado.friends.util.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_friends.*
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
@@ -30,10 +31,9 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* ViewBinding replacement for kotlin-android-extentions due to deprecation */
         val binding = FragmentFriendsBinding.bind(view)
-
         val friendAdapter = FriendAdapter(this)
-
         binding.apply {
             rvFriends.apply {
                 adapter = friendAdapter
@@ -41,6 +41,7 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
                 setHasFixedSize(true)
             }
 
+            //  Setup for swiping gestures on Friend item
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                 0,
                 ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -50,6 +51,7 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
                     viewHolder: RecyclerView.ViewHolder,
                     target: RecyclerView.ViewHolder
                 ): Boolean {
+                    //  we don't care about the move
                     return false;
                 }
 
@@ -66,6 +68,7 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
             }
         }
 
+
         setFragmentResultListener("add_edit_request") { _, bundle ->
             val result = bundle.getInt("add_edit_result")
             viewModel.onAddEditResult(result)
@@ -73,8 +76,13 @@ class FriendsFragment : Fragment(R.layout.fragment_friends), FriendAdapter.OnIte
 
         }
 
+        //  subscribing to the friend list, after any change, new list is received
         viewModel.friends.observe(viewLifecycleOwner, friendAdapter::submitList)
 
+        //  We don't want to block UI thread when dealing with Events
+        //  Flow can be collected only inside of a coroutine or another suspend function.
+        //  We care about those events only if we are in current Fragment =
+        //      we need scope of current view (FriendsFragment)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.friendEvent.collect { event ->
                 when (event) {

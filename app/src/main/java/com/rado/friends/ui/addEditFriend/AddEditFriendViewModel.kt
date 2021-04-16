@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.snackbar.Snackbar
 import com.rado.friends.data.Friend
 import com.rado.friends.data.FriendDAO
 import com.rado.friends.ui.ADD_FRIEND_RESULT_OK
@@ -69,8 +70,29 @@ class AddEditFriendViewModel @Inject constructor(
     val addEditFriendEvent = addEditFriendEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
+
         if (friendName.isBlank()) {
             showInvalidInputMessage("Name cannot be empty")
+            return
+        }
+        if (friendAddress.isBlank()) {
+            showInvalidInputMessage("Address cannot be empty")
+            return
+        }
+        if (friendBirthday.isBlank()) {
+            showInvalidInputMessage("Birthday cannot be empty")
+            return
+        }
+        if (friendPhone.isBlank()) {
+            showInvalidInputMessage("Phone cannot be empty")
+            return
+        }
+        if (friendEmail.isBlank()) {
+            showInvalidInputMessage("Email cannot be empty")
+            return
+        }
+        if (friendWebsite.isBlank()) {
+            showInvalidInputMessage("Website cannot be empty")
             return
         }
 
@@ -117,7 +139,11 @@ class AddEditFriendViewModel @Inject constructor(
 
     }
 
-
+    /**
+     * Exposing AddEditFriendEvent sealed class for FriendsFragment consumption.
+     * Fragment should be responsible as a view to display snackbar,
+     * therefore the FriendsFragment consumes events from FriendEventChannel.
+     */
     sealed class AddEditFriendEvent {
         data class ShowInvalidInputMessage(val msg: String) : AddEditFriendEvent()
         data class NavigateBackWithResult(val result: Int) : AddEditFriendEvent()

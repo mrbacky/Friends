@@ -25,6 +25,7 @@ class FriendViewModel @Inject constructor(
     val friends = friendDao.getFriends().asLiveData()
 
     private val friendEventChannel = Channel<FriendEvent>()
+    //  Exposing event channel as a flow to restrict fragment to do only consume events.
     val friendEvent = friendEventChannel.receiveAsFlow()
 
 
@@ -57,6 +58,7 @@ class FriendViewModel @Inject constructor(
         friendEventChannel.send(FriendEvent.ShowFriendSavedConfirmationMessage(s))
 
     }
+
 
     sealed class FriendEvent {
 
