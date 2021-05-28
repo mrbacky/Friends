@@ -27,13 +27,5 @@
         <argument
             android:name="title"
             app:argType="string" />
-        <action
-            android:id="@+id/action_addEditFriendFragment_to_cameraCustomActivity"
-            app:destination="@id/cameraCustomActivity" />
     </fragment>
-    <activity
-        android:id="@+id/cameraCustomActivity"
-        android:name="com.rado.friends.ui.addEditFriend.CameraCustomActivity"
-        android:label="activity_camera_custom"
-        tools:layout="@layout/activity_camera_custom" />
 </navigation>

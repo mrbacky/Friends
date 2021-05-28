@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "friends")
+//  Object that implements Parcelable can be sent between fragments,
+//  otherwise we would have to send properties separately
 @Parcelize
 data class Friend(
     val name: String,
